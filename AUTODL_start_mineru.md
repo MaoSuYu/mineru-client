@@ -2,14 +2,6 @@
 
 简短说明：本文档说明在 Autodl 场景下启动 Mineru 的推荐步骤，包括激活 conda 环境、设置模型来源环境变量、以及启动 `sglang-server` 的命令。文中给出 Linux (bash) 的命令示例。
 
-## 需求清单 (从用户请求提取)
-- 激活 conda 环境：`conda deactivate`，`conda activate mineru_py312`。
-- 设置环境变量：`export MINERU_MODEL_SOURCE=local`。
-- 启动 sglang-server：`mineru-sglang-server --port 6006 --mem-fraction-static 0.75 --enable-torch-compile`。
-/- 另一种可选的启动方式（使用 Gradio 前端与 sglang 引擎）：`mineru-gradio --server-name 0.0.0.0 --server-port 6008 --enable-sglang-engine true --enable-torch-compile --mem-fraction-static 0.75`。
-
-> 假设：Autodl 实际运行环境通常是 Linux（常见于 GPU 服务器），下面给出 Linux (bash) 的写法。
-
 ## 步骤（Linux，bash 示例）
 1. 退出当前 conda 环境（如果有）：
 
@@ -39,16 +31,26 @@ echo 'export MINERU_MODEL_SOURCE=local' | sudo tee -a /etc/profile
 
 使用 `source /etc/profile` 使其生效，或重新登录。
 
-4. 启动 sglang-server（启用 Torch 编译以提高性能）：
+4. 启动服务（请选择以下三种方式之一）：
+
+- 方式 A:
 
 ```bash
 mineru-sglang-server --port 6006 --mem-fraction-static 0.75 --enable-torch-compile
 ```
+(sglangserver)
 
-另一种可选的启动方式（使用 Gradio 前端并启用 sglang 引擎与 Torch 编译）：
+- 方式 B:
 
 ```bash
 mineru-gradio --server-name 0.0.0.0 --server-port 6008 --enable-sglang-engine true --enable-torch-compile --mem-fraction-static 0.75
 ```
+(gradio)
 
-说明：`--mem-fraction-static 0.75` 控制静态内存分配比率，按需调整（例如 0.5、0.8）。
+- 方式 C:
+
+```bash
+mineru-api --host 0.0.0.0 --port 6006
+```
+(fastapi)
+文档地址: http://127.0.0.1:8000/docs
