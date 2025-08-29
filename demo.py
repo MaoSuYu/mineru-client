@@ -1,4 +1,4 @@
-# Copyright (c) Opendatalab. All rights reserved.
+# 版权所有 (c) Opendatalab。保留所有权利。
 import warnings
 warnings.filterwarnings("ignore")
 import copy
@@ -21,25 +21,25 @@ from mineru.utils.models_download_utils import auto_download_and_get_model_root_
 
 
 def do_parse(
-    output_dir,  # Output directory for storing parsing results
-    pdf_file_names: list[str],  # List of PDF file names to be parsed
-    pdf_bytes_list: list[bytes],  # List of PDF bytes to be parsed
-    p_lang_list: list[str],  # List of languages for each PDF, default is 'ch' (Chinese)
-    backend="pipeline",  # The backend for parsing PDF, default is 'pipeline'
-    parse_method="auto",  # The method for parsing PDF, default is 'auto'
-    formula_enable=True,  # Enable formula parsing
-    table_enable=True,  # Enable table parsing
-    server_url=None,  # Server URL for vlm-sglang-client backend
-    f_draw_layout_bbox=True,  # Whether to draw layout bounding boxes
-    f_draw_span_bbox=True,  # Whether to draw span bounding boxes
-    f_dump_md=True,  # Whether to dump markdown files
-    f_dump_middle_json=True,  # Whether to dump middle JSON files
-    f_dump_model_output=True,  # Whether to dump model output files
-    f_dump_orig_pdf=True,  # Whether to dump original PDF files
-    f_dump_content_list=True,  # Whether to dump content list files
-    f_make_md_mode=MakeMode.MM_MD,  # The mode for making markdown content, default is MM_MD
-    start_page_id=0,  # Start page ID for parsing, default is 0
-    end_page_id=None,  # End page ID for parsing, default is None (parse all pages until the end of the document)
+    output_dir,  # 用于存储解析结果的输出目录
+    pdf_file_names: list[str],  # 待解析的 PDF 文件名列表
+    pdf_bytes_list: list[bytes],  # 待解析的 PDF bytes 列表
+    p_lang_list: list[str],  # 每个 PDF 对应的语言列表，默认 'ch'（中文）
+    backend="pipeline",  # 用于解析 PDF 的后端，默认 'pipeline'
+    parse_method="auto",  # 解析方法，默认 'auto'
+    formula_enable=True,  # 是否启用公式解析
+    table_enable=True,  # 是否启用表格解析
+    server_url=None,  # 当使用 vlm-sglang-client 后端时的服务器地址
+    f_draw_layout_bbox=True,  # 是否绘制布局（layout）边框
+    f_draw_span_bbox=True,  # 是否绘制文本 span 边框
+    f_dump_md=True,  # 是否导出 Markdown 文件
+    f_dump_middle_json=True,  # 是否导出中间格式 JSON
+    f_dump_model_output=True,  # 是否导出模型输出文件
+    f_dump_orig_pdf=True,  # 是否导出原始 PDF 文件
+    f_dump_content_list=True,  # 是否导出内容列表文件
+    f_make_md_mode=MakeMode.MM_MD,  # 生成 Markdown 的模式，默认 MM_MD
+    start_page_id=0,  # 开始页码（含），默认 0
+    end_page_id=None,  # 结束页码（含），默认 None（解析到文件末尾）
 ):
 
     if backend == "pipeline":
@@ -175,27 +175,25 @@ def parse_doc(
         end_page_id=None
 ):
     """
-        Parameter description:
-        path_list: List of document paths to be parsed, can be PDF or image files.
-        output_dir: Output directory for storing parsing results.
-        lang: Language option, default is 'ch', optional values include['ch', 'ch_server', 'ch_lite', 'en', 'korean', 'japan', 'chinese_cht', 'ta', 'te', 'ka']。
-            Input the languages in the pdf (if known) to improve OCR accuracy.  Optional.
-            Adapted only for the case where the backend is set to "pipeline"
-        backend: the backend for parsing pdf:
-            pipeline: More general.
-            vlm-transformers: More general.
-            vlm-sglang-engine: Faster(engine).
-            vlm-sglang-client: Faster(client).
-            without method specified, pipeline will be used by default.
-        method: the method for parsing pdf:
-            auto: Automatically determine the method based on the file type.
-            txt: Use text extraction method.
-            ocr: Use OCR method for image-based PDFs.
-            Without method specified, 'auto' will be used by default.
-            Adapted only for the case where the backend is set to "pipeline".
-        server_url: When the backend is `sglang-client`, you need to specify the server_url, for example:`http://127.0.0.1:30000`
-        start_page_id: Start page ID for parsing, default is 0
-        end_page_id: End page ID for parsing, default is None (parse all pages until the end of the document)
+    参数说明：
+    path_list: 待解析的文档路径列表，支持 PDF 或 图片文件。
+    output_dir: 用于存放解析结果的输出目录。
+    lang: 语言选项，默认 'ch'，可选值示例 ['ch', 'ch_server', 'ch_lite', 'en', 'korean', 'japan', 'chinese_cht', 'ta', 'te', 'ka']。
+        若已知文档语言可传入以提高 OCR 准确率（可选）。
+        仅在 backend 为 "pipeline" 时生效。
+    backend: 解析后端，常见选项：
+        - pipeline: 通用模式（默认）。
+        - vlm-transformers: VLM 转换器模式。
+        - vlm-sglang-engine: VLM sglang 引擎（更快，engine）。
+        - vlm-sglang-client: VLM sglang 客户端（更快，client）。
+    method: 解析方法：
+        - auto: 根据文件类型自动判断（默认）。
+        - txt: 文本抽取方法。
+        - ocr: 对基于图片的 PDF 使用 OCR。
+        仅在 backend 为 "pipeline" 时适用。
+    server_url: 当 backend 使用 `sglang-client` 时需指定服务器地址，例如: `http://127.0.0.1:30000`。
+    start_page_id: 开始页码（含），默认 0。
+    end_page_id: 结束页码（含），默认 None（解析到文档末尾）。
     """
     try:
         file_name_list = []
@@ -223,7 +221,7 @@ def parse_doc(
 
 
 if __name__ == '__main__':
-    # args
+    # 参数
     __dir__ = os.path.dirname(os.path.abspath(__file__))
     pdf_files_dir = os.path.join(__dir__, "pdfs")
     output_dir = os.path.join(__dir__, "output")
@@ -235,13 +233,13 @@ if __name__ == '__main__':
         if doc_path.suffix in pdf_suffixes + image_suffixes:
             doc_path_list.append(doc_path)
 
-    """如果您由于网络问题无法下载模型，可以设置环境变量MINERU_MODEL_SOURCE为modelscope使用免代理仓库下载模型"""
+    """如果您由于网络问题无法下载模型，可以设置环境变量 MINERU_MODEL_SOURCE 为 modelscope 使用免代理仓库下载模型"""
     # os.environ['MINERU_MODEL_SOURCE'] = "modelscope"
-
-    """Use pipeline mode if your environment does not support VLM"""
+    """如果环境不支持 VLM，可使用 pipeline 模式"""
     # parse_doc(doc_path_list, output_dir, backend="pipeline")
 
-    """To enable VLM mode, change the backend to 'vlm-xxx'"""
-    # parse_doc(doc_path_list, output_dir, backend="vlm-transformers")  # more general.
-    # parse_doc(doc_path_list, output_dir, backend="vlm-sglang-engine")  # faster(engine).
-    parse_doc(doc_path_list, output_dir, backend="vlm-sglang-client", server_url="https://u242790-9a58-96f2004f.cqa1.seetacloud.com:8443")  # faster(client).
+    """启用 VLM 模式时，将 backend 修改为 'vlm-xxx'"""
+    # parse_doc(doc_path_list, output_dir, backend="vlm-transformers")  # 更通用模式
+    # parse_doc(doc_path_list, output_dir, backend="vlm-sglang-engine")  # 更快（engine）
+    # 仅在 sglang-server 可用的情况下使用
+    parse_doc(doc_path_list, output_dir, backend="vlm-sglang-client", server_url="https://u242790-9a58-96f2004f.cqa1.seetacloud.com:8443")  # 更快（client）
